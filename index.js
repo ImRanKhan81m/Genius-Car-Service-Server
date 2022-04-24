@@ -35,22 +35,30 @@ async function run() {
             res.send(service);
         });
 
-        app.post('/service', async(req, res)=>{
+        app.post('/service', async (req, res) => {
             const newService = req.body;
             const result = await serviceCollection.insertOne(newService);
             res.send(result);
         });
 
         // Delete
-        app.delete('/service/:id', async(req, res)=>{
+        app.delete('/service/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)};
+            const query = { _id: ObjectId(id) };
             const result = await serviceCollection.deleteOne(query);
             res.send(result)
-        } ); 
+        });
 
         // Order Collection API
-        app.post('/order', async(req, res)=>{
+
+        app.get('/order', async (req, res) => {
+            const query = {};
+            const cursor = orderCollection.find(query);
+            const orders = await cursor.toArray();
+            res.send(orders);
+        })
+
+        app.post('/order', async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order);
             res.send(result);
