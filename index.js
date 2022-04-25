@@ -24,9 +24,10 @@ function verifyJWT(req, res, next) {
         }
         console.log('decoded', decoded);
         req.decoded = decoded;
+        next();
     })
-    next();
-}
+    
+};
 
 
 
@@ -89,7 +90,7 @@ async function run() {
                 const orders = await cursor.toArray();
                 res.send(orders);
             }else{
-                
+                res.status(403).send({message: 'forbidden access'})
             }
         })
 
