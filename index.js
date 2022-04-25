@@ -107,6 +107,9 @@ async function run() {
 }
 run().catch(console.dir);
 
+app.get('/hero', (req, res) => {
+    res.send('Programming Hero running')
+});
 
 app.get('/', (req, res) => {
     res.send('Running Genius Server')
